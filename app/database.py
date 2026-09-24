@@ -18,4 +18,35 @@ def execute_read_query(sql_query:str):
   finally:
     conn.close()
 def extract_database_schema()->dict:
+  """Extract table ,data"""
+  schema_query="""
+  SELECT 
+      table_name,
+      column_name,
+      data_type
+  FROM information_schema.columns
+  WHERE table_schema='public'
+  ORDER BY table_name,ordinal_position"""
+  conn=get_connection()
+  tables={}
+  try: 
+    with conn.cursor(cursor_factory=RealDictCursor)as Cursor:
+      cursor.execute(schema_query)
+      for row in cursor.fetchall():
+        t_name=row["table_name"]
+        if t_name not in tables:
+          tables[t_name]=[]
+        tables[t_name].append(f"{row['column_name']}({row['data_type']})")
+        
+          
+          
+        
+  finally:
+    conn.close()
+  return tables
+
+      
   
+  
+  
+    

@@ -27,5 +27,6 @@ def index_database_schema():
    for item in schemas:
       tale_name=item["table_name"]
       raw_schema=item["raw_schema"]
-      text_to_embed=f"Table name:{tale_name}\nSchema:\n{raw_schema}
+      text_to_embed=f"Table name:{tale_name}\nSchema:\n{raw_schema}"
+      
       

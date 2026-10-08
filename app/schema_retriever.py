@@ -28,5 +28,12 @@ def index_database_schema():
       tale_name=item["table_name"]
       raw_schema=item["raw_schema"]
       text_to_embed=f"Table name:{tale_name}\nSchema:\n{raw_schema}"
+      vector =get_text_embedding(text_to_embed)
+      point_id=str(uuid.uuid5(uid.NAMESPACE_DNS,tale_name))
+points.append(PointStruct(id=point_id, vector=vector,payload ={"table_name":tale_name,"raw_schema":raw_schema}
+))
+client.upsert(collection_name=COLLECTION_NAME,points=points)
+
+
       
       

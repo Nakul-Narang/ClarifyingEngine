@@ -33,6 +33,19 @@ def index_database_schema():
       points.append(PointStruct(id=point_id, vector=vector,payload ={"table_name":tale_name,"raw_schema":raw_schema}
 ))
 client.upsert(collection_name=COLLECTION_NAME,points=points)
+print(f"[Success] Indexed{len(points)} database table schemas into Qdrant collection '{COLLECTION_NAME}'.")
+def retrieve_relevant_tables(user_query:str,top_k:int=3)->list[dict]:
+ client=get_qdrant_client()
+ query_vector=get_text_embedding(user_query)
+ search_results=client.search(
+   collection_name=COLLECTION_NAME,
+   query_vector=query_vector,
+   limit=top_k)
+ return[{"table_name":hit.payload["tale_name"],
+       "raw_schema":hit.payload["raw_schema"],
+"score":hit.score}
+for hit in search_results]
+
 
 
       

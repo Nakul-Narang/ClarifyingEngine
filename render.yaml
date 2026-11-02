@@ -1,0 +1,35 @@
+import os
+
+import uvicorn
+from fastapi import FastAPI
+
+from app.config import settings
+
+app = FastAPI(
+    title="ClarifyingEngine",
+    description="Text-to-SQL engine with clarification and schema-aware retrieval.",
+    version="0.1.0",
+)
+
+
+@app.get("/")
+def root() -> dict[str, str]:
+    return {"message": "ClarifyingEngine is running"}
+
+
+@app.get("/health")
+def health() -> dict[str, str]:
+    return {"status": "ok"}
+
+
+@app.get("/config")
+def config_status() -> dict[str, bool]:
+    return {
+        "database_configured": bool(settings.DATABASE_URL),
+        "qdrant_configured": bool(settings.QDRANT_URL),
+    }
+
+
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", "8000"))
+    uvicorn.run("app.main:app", host="0.0.0.0", port=port, reload=False)

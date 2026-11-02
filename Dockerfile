@@ -1,0 +1,9 @@
+fastapi>=0.110.0
+uvicorn>=0.28.0
+pydantic>=2.6.0
+pydantic-settings>=2.2.0
+psycopg2-binary>=2.9.9
+sqlglot>=23.0.0
+litellm>=1.30.0
+qdrant-client>=1.8.0
+pytest>=8.0.0

@@ -1,5 +1,4 @@
-.env
-__pycache__/
-*.pyc
-.pytest_cache/
-.venv/
+DATABASE_URL=postgresql://user:password@ep-xyz.neon.tech/neondb?sslmode=require
+QDRANT_URL=https://your-cluster-id.qdrant.tech
+QDRANT_API_KEY=your-qdrant-api-key
+GROQ_API_KEY=your-groq-or-openai-api-key
